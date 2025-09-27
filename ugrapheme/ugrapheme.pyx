@@ -631,7 +631,13 @@ cpdef unicode grapheme_slice(unicode ustr,
 
     cdef size_t l = PyUnicode_GetLength(ustr) - upos
     if startpos < 0:
-        startpos = 0
+        startpos += l
+        if startpos < 0:
+            startpos = 0
+    if endpos < 0:
+        endpos += l
+        if endpos < 0:
+            endpos = 0
     if startpos >= l or endpos <= startpos:
         return ''
 
